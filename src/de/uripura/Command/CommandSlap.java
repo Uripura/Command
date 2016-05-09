@@ -7,7 +7,6 @@
  */
 package de.uripura.Command;
 
-import java.util.Collection;
 import java.util.Random;
 
 import org.bukkit.ChatColor;
@@ -32,6 +31,7 @@ public class CommandSlap implements CommandExecutor {
 
 		Random random = new Random();
 		Player player = (Player) sender;
+		PlayerList list = new PlayerList(sender.getServer());
 
 		if (!player.hasPermission("command.slap")) {
 			player.sendMessage(ChatColor.RED + conf.getString(
@@ -50,18 +50,7 @@ public class CommandSlap implements CommandExecutor {
 			return false;
 		}
 
-		Collection<? extends Player> playerList = player.getServer()
-				.getOnlinePlayers();
-
-		Player pSlap = null;
-		// Find a player to slap
-		for (Player tmpPlay : playerList) {
-			if (tmpPlay.getName().toLowerCase().contains(args[0]
-					.toLowerCase())) {
-				pSlap = tmpPlay;
-				break;
-			}
-		}
+		Player pSlap = list.getPlayerFromName(args[0]);
 
 		if (pSlap == null) {
 			player.sendMessage(ChatColor.RED + conf.getString(
@@ -73,17 +62,14 @@ public class CommandSlap implements CommandExecutor {
 		pSlap.setVelocity(new Vector(random.nextDouble() * 2.0 - 1,
 				random.nextDouble() * 1,
 				random.nextDouble() * 2.0 - 1));
+
 		pSlap.sendMessage(ChatColor.YELLOW + conf.getString(
 				"msg.slap.notify-slap") + " " + player.getName());
 
-		// inform other players
-		for (Player tmpPlay : playerList) {
-			if (!tmpPlay.equals(pSlap)) {
-				tmpPlay.sendMessage(ChatColor.YELLOW + pSlap.getName() + " "
-						+ conf.getString("msg.slap.notify-slap-announce")
-						+ " by " + player.getName());
-			}
-		}
+		list.sendMsg(ChatColor.YELLOW + pSlap.getName() + " " + conf.getString(
+				"msg.slap.notify-slap-announce") + " by " + player.getName(),
+				pSlap);
+
 		return true;
 	}
 }

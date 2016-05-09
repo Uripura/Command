@@ -7,8 +7,6 @@
  */
 package de.uripura.Command;
 
-import java.util.Collection;
-
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -29,6 +27,7 @@ public class CommandMsg implements CommandExecutor {
 			String[] args) {
 
 		Player player = (Player) sender;
+		PlayerList list = new PlayerList(sender.getServer());
 
 		if (!player.hasPermission("command.msg")) {
 			player.sendMessage(ChatColor.RED + conf.getString(
@@ -42,19 +41,9 @@ public class CommandMsg implements CommandExecutor {
 			return false;
 		}
 
-		Player pMsg = null;
 		String message = "";
-		Collection<? extends Player> playerList = player.getServer()
-				.getOnlinePlayers();
 
-		// Find a player to slap
-		for (Player tmpPlay : playerList) {
-			if (tmpPlay.getName().toLowerCase().contains(args[0]
-					.toLowerCase())) {
-				pMsg = tmpPlay;
-				break;
-			}
-		}
+		Player pMsg = list.getPlayerFromName(player.getName());
 
 		if (pMsg == null) {
 			player.sendMessage(ChatColor.RED + conf.getString(

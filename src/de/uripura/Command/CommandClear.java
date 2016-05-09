@@ -7,8 +7,6 @@
  */
 package de.uripura.Command;
 
-import java.util.Collection;
-
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -29,6 +27,7 @@ public class CommandClear implements CommandExecutor {
 			String[] args) {
 
 		Player player = (Player) sender;
+		PlayerList list = new PlayerList(sender.getServer());
 		org.bukkit.inventory.PlayerInventory inventory = player.getInventory();
 
 		if (!player.hasPermission("command.clear")) {
@@ -59,29 +58,26 @@ public class CommandClear implements CommandExecutor {
 			}
 			// arg must be a player name
 			else {
-				Collection<? extends Player> playerList = player.getServer()
-						.getOnlinePlayers();
+				Player tmpPlay = list.getPlayerFromName(args[0]);
 
-				for (Player tmpPlay : playerList) {
-					if (tmpPlay.getName().toLowerCase().contains(args[0]
-							.toLowerCase())) {
-
-						inventory = tmpPlay.getInventory();
-						for (int i = 9; i < 36; i++) {
-							inventory.setItem(i, null);
-						}
-						tmpPlay.sendMessage(ChatColor.YELLOW + conf.getString(
-								"msg.clear.notify-cleared"));
-						return true;
-					}
+				if (tmpPlay == null) {
+					player.sendMessage(ChatColor.RED + conf.getString(
+							"msg.generic.error-player-not-found"));
+					return true;
 				}
-				player.sendMessage(ChatColor.RED + conf.getString(
-						"msg.generic.error-player-not-found"));
+
+				inventory = tmpPlay.getInventory();
+				for (int i = 9; i < 36; i++) {
+					inventory.setItem(i, null);
+				}
+				tmpPlay.sendMessage(ChatColor.YELLOW + conf.getString(
+						"msg.clear.notify-cleared"));
 				return true;
 			}
 		}
 
 		if (args.length == 2) {
+
 			boolean flag_all = false;
 			String name = "";
 
@@ -94,30 +90,25 @@ public class CommandClear implements CommandExecutor {
 				name = args[0];
 			}
 
+			Player tmpPlay = list.getPlayerFromName(name);
+
 			if (!flag_all)
-				// player.sendMessage(ChatColor.RED + conf.getString(
-				// "msg.generic.error-to-many-arguments"));
 				return false;
 
-			Collection<? extends Player> playerList = player.getServer()
-					.getOnlinePlayers();
-
-			for (Player tmpPlay : playerList) {
-				if (tmpPlay.getName().toLowerCase().contains(name
-						.toLowerCase())) {
-
-					inventory = tmpPlay.getInventory();
-					inventory.clear();
-					tmpPlay.sendMessage(ChatColor.YELLOW + conf.getString(
-							"msg.clear.notify-cleared-full"));
-					player.sendMessage(ChatColor.RED + conf.getString(
-							"msg.clear.notify-cleared"));
-					return true;
-				}
+			if (tmpPlay == null) {
+				player.sendMessage(ChatColor.RED + conf.getString(
+						"msg.generic.error-player-not-found"));
+				return true;
 			}
+
+			tmpPlay.getInventory().clear();
+
+			tmpPlay.sendMessage(ChatColor.YELLOW + conf.getString(
+					"msg.clear.notify-cleared-full"));
 			player.sendMessage(ChatColor.RED + conf.getString(
-					"msg.generic.error-player-not-found"));
+					"msg.clear.notify-cleared"));
 			return true;
+
 		}
 		return false;
 	}
