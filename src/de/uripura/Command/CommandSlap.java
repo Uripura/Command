@@ -67,8 +67,7 @@ public class CommandSlap implements CommandExecutor {
 				"msg.slap.notify-slap") + " " + player.getName());
 
 		list.sendMsg(ChatColor.YELLOW + pSlap.getName() + " " + conf.getString(
-				"msg.slap.notify-slap-announce") + " by " + player.getName(),
-				pSlap);
+				"msg.slap.notify-slap-announce") + player.getName(), pSlap);
 
 		return true;
 	}

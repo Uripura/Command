@@ -21,7 +21,7 @@ msg:
     error-not-num: 'Coordinates must be a number'
   slap:
     notify-slap: 'You have been slapped by'
-    notify-slap-announce: 'has been slapped'
+    notify-slap-announce: 'has been slapped by'
   clear:
     notify-cleared: 'Inventory has been cleared'
     notify-cleared-full: 'Inventory has been completly cleared'
