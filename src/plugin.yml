@@ -1,0 +1,64 @@
+name: Command
+version: 0.1
+description: Implements some basic commands
+author: Uripura
+website: https://uripura.de
+main: de.uripura.Command.Command
+
+commands:
+  tp:
+    description: Teleports you to a location or a player
+    usage: 'usage: /tp <x,y,z> or <NAME>'
+    aliases: [teleport, tphere]
+  spawn:
+    description: Teleports you back to the spawnpoint
+    usage: 'usage: /spawn'
+    aliases: [home]
+  slap:
+    description: Slaps a player
+    usage: 'usage: /slap <player>'
+  motd:
+    description: Displays the message of the day
+    usage: 'usage: /motd'
+  msg:
+    description: Sends a private message to a player
+    usage: 'usage: /msg <player> <message>'
+  clear:
+    description: Clears the inventory
+    usage: 'usage: /clear [-a] <player>'
+    
+permissions:
+  comm.*:
+    description: Gives access to all of Commands commands
+    children:
+      comm.tp: true
+      comm.spawn: true
+      comm.slap: true
+      comm.motd: true
+      comm.msg: true
+      comm.clear: true
+  comm.user:
+    description: Gives access to user commands
+    default: true
+    children:
+      comm.spawn: true
+      comm.motd: true
+      comm.msg: true
+  comm.tp:
+    description: Allows you to teleports to a location or a player
+    default: op
+  comm.spawn:
+    description: Allows you to tleport you back to the spawnpoint
+    default: op
+  comm.slap:
+    description: Allows you to slap a player
+    default: op
+  comm.motd:
+    description: Allows you to display the message of the day
+    default: op
+  comm.msg:
+    description: Allows you to send a private essage to a player
+    default: op
+  comm.clear:
+    description: Allows you to clear the inventory
+    default: op

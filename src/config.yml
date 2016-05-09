@@ -1,0 +1,33 @@
+# Here you can enable or disable commands and config the behavior of this plugin
+
+# Commands
+enable:
+  clear: true
+  motd: true
+  msg: true
+  slap: true
+  spawn: true
+  teleport: true
+  
+msg:
+  generic:
+    error-player-only: 'Can only execute this command as player'
+    error-player-not-found: 'Could not find player'
+    error-to-many-arguments: 'Too many arguments'
+    error-to-few-arguments: 'Too few arguments'
+    error-permission: 'You do not have the permission to use this command'
+  teleport:
+    error-num-coords: 'You must provide 3 Coordinates separated by a `,` or by a ` `'
+    error-not-num: 'Coordinates must be a number'
+  slap:
+    notify-slap: 'You have been slapped by'
+    notify-slap-announce: 'has been slapped'
+  clear:
+    notify-cleared: 'Inventory has been cleared'
+    notify-cleared-full: 'Inventory has been completly cleared'
+  motd:
+    motd: 'Welcome to this Minecraft Server!'
+    online: 'Players online:'
+  msg:
+    whisper-from: 'whispers to you:'
+    whisper-to: 'You whisper to'
