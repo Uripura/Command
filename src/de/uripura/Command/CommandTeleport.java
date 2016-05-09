@@ -1,3 +1,10 @@
+/*
+ * This program is free software. It comes without any warranty, to
+ * the extent permitted by applicable law. You can redistribute it
+ * and/or modify it under the terms of the Do What The Fuck You Want
+ * To Public License, Version 2, as published by Sam Hocevar. See
+ * http://www.wtfpl.net/ for more details.
+ */
 package de.uripura.Command;
 
 import java.util.Collection;
@@ -77,10 +84,11 @@ public class CommandTeleport implements CommandExecutor {
 							.toLowerCase())) {
 						// Check if we want to the player,
 						// or the player wants to us
-						if (label.equalsIgnoreCase("tphere"))
+						if (label.equalsIgnoreCase("tphere")) {
 							tmpPlay.teleport(player.getLocation());
-						else
+						} else {
 							player.teleport(tmpPlay.getLocation());
+						}
 						return true;
 					}
 				}
@@ -107,11 +115,12 @@ public class CommandTeleport implements CommandExecutor {
 					p2 = tmpPlay;
 				}
 			}
-			if (p1 != null && p2 != null)
+			if (p1 != null && p2 != null) {
 				p1.teleport(p2);
-			else
+			} else {
 				sender.sendMessage(ChatColor.RED + conf.getString(
 						"msg.generic.error-player-not-found"));
+			}
 			return true;
 		}
 
