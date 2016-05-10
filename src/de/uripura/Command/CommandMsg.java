@@ -11,6 +11,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
@@ -43,11 +44,17 @@ public class CommandMsg implements CommandExecutor {
 		String message = "";
 
 		Player pMsg = list.getPlayerFromName(args[0]);
+		ConsoleCommandSender console = null;
 
 		if (pMsg == null) {
-			sender.sendMessage(ChatColor.RED + conf.getString(
-					"msg.generic.error-player-not-found"));
-			return true;
+			if (args[0].equalsIgnoreCase("console")) {
+				console = sender.getServer().getConsoleSender();
+			} else {
+				sender.sendMessage(ChatColor.RED + conf.getString(
+						"msg.generic.error-player-not-found"));
+				return true;
+			}
+
 		}
 
 		for (int i = 1; i < args.length; i++) {
@@ -58,13 +65,21 @@ public class CommandMsg implements CommandExecutor {
 			}
 		}
 
-		pMsg.sendMessage(ChatColor.GRAY + sender.getName() + " " + conf
-				.getString("msg.msg.whisper-from") + " " + ChatColor.RESET
-				+ message);
-
-		sender.sendMessage(ChatColor.GRAY + sender.getName() + " " + conf
-				.getString("msg.msg.whisper-to") + " " + pMsg.getName() + ": "
-				+ ChatColor.RESET + message);
+		if (pMsg == null && console != null) {
+			console.sendMessage(ChatColor.GRAY + sender.getName() + " " + conf
+					.getString("msg.msg.whisper-from") + " " + ChatColor.RESET
+					+ message);
+			sender.sendMessage(ChatColor.GRAY + sender.getName() + " " + conf
+					.getString("msg.msg.whisper-to") + " " + console.getName()
+					+ ": " + ChatColor.RESET + message);
+		} else {
+			pMsg.sendMessage(ChatColor.GRAY + sender.getName() + " " + conf
+					.getString("msg.msg.whisper-from") + " " + ChatColor.RESET
+					+ message);
+			sender.sendMessage(ChatColor.GRAY + sender.getName() + " " + conf
+					.getString("msg.msg.whisper-to") + " " + pMsg.getName()
+					+ ": " + ChatColor.RESET + message);
+		}
 		return true;
 	}
 
