@@ -26,12 +26,11 @@ public class CommandSlap implements CommandExecutor {
 	}
 
 	@Override
-	public boolean onCommand(CommandSender sender, Command cmd, String label,
+	public boolean onCommand(CommandSender player, Command cmd, String label,
 			String[] args) {
 
 		Random random = new Random();
-		Player player = (Player) sender;
-		PlayerList list = new PlayerList(sender.getServer());
+		PlayerList list = new PlayerList(player.getServer());
 
 		if (!player.hasPermission("command.slap")) {
 			player.sendMessage(ChatColor.RED + conf.getString(
