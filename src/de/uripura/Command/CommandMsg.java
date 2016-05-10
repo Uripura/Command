@@ -26,27 +26,26 @@ public class CommandMsg implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String label,
 			String[] args) {
 
-		Player player = (Player) sender;
 		PlayerList list = new PlayerList(sender.getServer());
 
-		if (!player.hasPermission("command.msg")) {
-			player.sendMessage(ChatColor.RED + conf.getString(
+		if (!sender.hasPermission("command.msg")) {
+			sender.sendMessage(ChatColor.RED + conf.getString(
 					"msg.generic.error-permission"));
 			return true;
 		}
 
 		if (args.length < 2) {
-			player.sendMessage(ChatColor.RED + conf.getString(
+			sender.sendMessage(ChatColor.RED + conf.getString(
 					"msg.generic.error-to-few-arguments"));
 			return false;
 		}
 
 		String message = "";
 
-		Player pMsg = list.getPlayerFromName(player.getName());
+		Player pMsg = list.getPlayerFromName(args[0]);
 
 		if (pMsg == null) {
-			player.sendMessage(ChatColor.RED + conf.getString(
+			sender.sendMessage(ChatColor.RED + conf.getString(
 					"msg.generic.error-player-not-found"));
 			return true;
 		}
@@ -59,11 +58,11 @@ public class CommandMsg implements CommandExecutor {
 			}
 		}
 
-		pMsg.sendMessage(ChatColor.GRAY + player.getName() + " " + conf
+		pMsg.sendMessage(ChatColor.GRAY + sender.getName() + " " + conf
 				.getString("msg.msg.whisper-from") + " " + ChatColor.RESET
 				+ message);
 
-		player.sendMessage(ChatColor.GRAY + player.getName() + " " + conf
+		sender.sendMessage(ChatColor.GRAY + sender.getName() + " " + conf
 				.getString("msg.msg.whisper-to") + " " + pMsg.getName() + ": "
 				+ ChatColor.RESET + message);
 		return true;
