@@ -67,6 +67,8 @@ public class CommandSlap implements CommandExecutor {
 		if( health > 2)
 			pSlap.setHealth(health-1);
 
+		pSlap.playSound(pSlap, pSlap.getHurtSound(), 100, 1);
+		
 		pSlap.sendMessage(ChatColor.YELLOW + conf.getString(
 				"msg.slap.notify-slap") + " " + player.getName());
 
