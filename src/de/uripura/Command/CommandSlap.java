@@ -10,6 +10,7 @@ package de.uripura.Command;
 import java.util.Random;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -61,6 +62,10 @@ public class CommandSlap implements CommandExecutor {
 		pSlap.setVelocity(new Vector(random.nextDouble() * 2.0 - 1,
 				random.nextDouble() * 1,
 				random.nextDouble() * 2.0 - 1));
+
+		double health = pSlap.getHealth();
+		if( health > 2)
+			pSlap.setHealth(health-1);
 
 		pSlap.sendMessage(ChatColor.YELLOW + conf.getString(
 				"msg.slap.notify-slap") + " " + player.getName());
