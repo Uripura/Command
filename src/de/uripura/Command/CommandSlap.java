@@ -60,7 +60,7 @@ public class CommandSlap implements CommandExecutor {
 
 		// slap the player
 		pSlap.setVelocity(new Vector(random.nextDouble() * 2.0 - 1,
-				random.nextDouble() * 1,
+				0.5,
 				random.nextDouble() * 2.0 - 1));
 
 		double health = pSlap.getHealth();
