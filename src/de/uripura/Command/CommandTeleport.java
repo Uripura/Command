@@ -37,7 +37,7 @@ public class CommandTeleport implements CommandExecutor {
 		Location location;
 		PlayerList list = new PlayerList(sender.getServer());
 
-		if (!player.hasPermission("command.tp")) {
+		if (!player.hasPermission("comm.tp")) {
 			player.sendMessage(ChatColor.RED + conf.getString(
 					"msg.generic.error-permission"));
 			return true;

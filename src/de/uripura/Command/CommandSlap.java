@@ -33,7 +33,7 @@ public class CommandSlap implements CommandExecutor {
 		Random random = new Random();
 		PlayerList list = new PlayerList(player.getServer());
 
-		if (!player.hasPermission("command.slap")) {
+		if (!player.hasPermission("comm.slap")) {
 			player.sendMessage(ChatColor.RED + conf.getString(
 					"msg.generic.error-permission"));
 			return true;

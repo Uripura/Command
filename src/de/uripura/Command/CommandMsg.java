@@ -29,7 +29,7 @@ public class CommandMsg implements CommandExecutor {
 
 		PlayerList list = new PlayerList(sender.getServer());
 
-		if (!sender.hasPermission("command.msg")) {
+		if (!sender.hasPermission("comm.msg")) {
 			sender.sendMessage(ChatColor.RED + conf.getString(
 					"msg.generic.error-permission"));
 			return true;

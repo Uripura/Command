@@ -25,7 +25,7 @@ public class CommandMotd implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String label,
 			String[] args) {
 
-		if (sender.hasPermission("command.motd")) {
+		if (sender.hasPermission("comm.motd")) {
 			sender.sendMessage(ChatColor.translateAlternateColorCodes('&',
 					conf.getString("msg.motd.motd")));
 		} else {

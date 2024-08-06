@@ -34,13 +34,13 @@ public class CommandSpawn implements CommandExecutor {
 
 		Player player = (Player) sender;
 
-		if (!player.hasPermission("command.spawn")) {
+		if (!player.hasPermission("comm.spawn")) {
 			player.sendMessage(ChatColor.RED + conf.getString(
 					"msg.generic.error-permission"));
 			return true;
 		}
 
-		if (!player.hasPermission("command.spawn")) {
+		if (!player.hasPermission("comm.spawn")) {
 			player.sendMessage(conf.getString(ChatColor.RED
 					+ "msg.generic.error-permission"));
 			return true;

@@ -85,7 +85,7 @@ public class CommandClear implements CommandExecutor {
 		Player player = (Player) sender;
 		inventory = player.getInventory();
 
-		if (!player.hasPermission("command.clear")) {
+		if (!player.hasPermission("comm.clear")) {
 			player.sendMessage(ChatColor.RED + conf.getString(
 					"msg.generic.error-permission"));
 			return true;
