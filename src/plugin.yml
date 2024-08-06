@@ -1,6 +1,6 @@
 name: Command
 version: 0.1
-api-version: 1.18
+api-version: 1.20
 description: Implements some basic commands
 author: Uripura
 website: https://uripura.de
