@@ -30,18 +30,17 @@ public class CommandClear implements CommandExecutor {
 		org.bukkit.inventory.PlayerInventory inventory;
 
 		// if sender is the console
-		if (sender instanceof Player) {
+		if (!(sender instanceof Player)) {
 			if (args.length == 1) {
 				Player tmp = list.getPlayerFromName(args[0]);
 				inventory = tmp.getInventory();
 
-				if (tmp != null) {
-					for (int i = 9; i < 36; i++) {
-						inventory.setItem(i, null);
-					}
-					tmp.sendMessage(ChatColor.YELLOW + conf.getString(
-							"msg.clear.notify-cleared"));
+				for (int i = 9; i < 36; i++) {
+					inventory.clear(i);
 				}
+				tmp.sendMessage(ChatColor.YELLOW + conf.getString(
+						"msg.clear.notify-cleared"));
+
 				sender.sendMessage(ChatColor.YELLOW + conf.getString(
 						"msg.clear.notify-cleared"));
 
@@ -75,7 +74,7 @@ public class CommandClear implements CommandExecutor {
 				tmpPlay.sendMessage(ChatColor.YELLOW + conf.getString(
 						"msg.clear.notify-cleared-full"));
 				sender.sendMessage(ChatColor.RED + conf.getString(
-						"msg.clear.notify-cleared"));
+						"msg.clear.notify-cleared-full"));
 				return true;
 			}
 			return false;
@@ -160,8 +159,10 @@ public class CommandClear implements CommandExecutor {
 
 			tmpPlay.sendMessage(ChatColor.YELLOW + conf.getString(
 					"msg.clear.notify-cleared-full"));
+			if (tmpPlay.equals( player))
+				return true;
 			player.sendMessage(ChatColor.RED + conf.getString(
-					"msg.clear.notify-cleared"));
+					"msg.clear.notify-cleared-full"));
 			return true;
 
 		}
